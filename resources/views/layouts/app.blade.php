@@ -28,7 +28,7 @@
         @yield('content')
     </main>
 
-    <footer>
+    <footer class="bg-light text-center text-lg-start mt-5 p-3">
         <p>&copy; {{ date('Y') }} Company Name</p>
     </footer>
 </body>
