@@ -11,26 +11,9 @@
     </div>
 
     <ul class="list-group">
-
+        @include('new-task-row')
         @foreach ($tasks as $task)
-        <li class="list-group-item">{{ $task->title }}
-            <div class="icon-group d-inline-block float-end fs-5">
-
-                <a href="#" class="link-secondary text-decoration-none ">
-                    <i class="bi bi-circle"></i>
-                </a>
-
-                <a href="#" class="link-danger text-decoration-none ">
-                    <i class="bi bi-trash3"></i>
-                </a>
-
-                <a href="#" class="link-success text-decoration-none">
-                    <i class="bi bi-check-circle"></i>
-                </a>
-            </div>
-
-        </li>
-
+        @include('task-row', ['task' => $task])
         @endforeach
 
     </ul>

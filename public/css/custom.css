@@ -2,6 +2,10 @@ main {
     padding: 20px;
 }
 
-.icon-group a i:active {
+.icon-group button {
+    border: none;
+}
+
+.icon-group button:active {
     font-size: 1.2rem;
 }
