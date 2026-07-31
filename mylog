@@ -1,0 +1,4 @@
+curl -s "https://laravel.build/esn-tasks?with=mysql" | bash
+cd esn-tasks
+./sail up
+sail artisan migrate
