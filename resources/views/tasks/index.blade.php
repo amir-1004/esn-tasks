@@ -1,13 +1,27 @@
 @extends('layouts.app')
 
-@section('title', 'My Page')
+@section('title', 'Tasks Page')
 
 @section('content')
 
 <div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1>Welcome to Tasks Lists</h1>
-        <button class="btn btn-primary new-task-btn">New Task <i class="bi bi-plus-circle"></i></button>
+
+    <div class="row py-2">
+        <div class="col-sm-7">
+            <h1>Welcome to Tasks Lists</h1>
+        </div>
+        <div class="col-sm-5 d-flex h-25">
+            <div class="input-group me-2">
+                <span class="input-group-text">
+                    <i class="bi bi-search"></i>
+                </span>
+                <input id='search' type="text" class="form-control" placeholder="Search...">
+            </div>
+            <button class="btn btn-primary new-task-btn w-75">
+                <i class="bi bi-plus-circle"></i>
+                New Task
+            </button>
+        </div>
     </div>
 
     <ul class="list-group">

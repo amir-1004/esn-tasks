@@ -183,3 +183,15 @@ function toastMessage(message, type = "success") {
     let toast = new bootstrap.Toast($toastElement[0]);
     toast.show();
 }
+
+//search filter mechanism for the tasks list
+$(() => {
+    $("input#search").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $(".task-row-wrapper").filter(function () {
+            $(this).toggle(
+                $(this).text().trim().toLowerCase().indexOf(value) > -1,
+            );
+        });
+    });
+});
