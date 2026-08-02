@@ -23,7 +23,7 @@ class TaskController extends Controller
 
         $task = Task::create($request->only('title'));
         $taskRowHtml = view('tasks.task-row', compact('task'))->render();
-        return $this->apiSuccess($taskRowHtml, 'Task created successfully.');
+        return $this->apiSuccess($taskRowHtml, "Task {$task->title} created successfully.");
     }
 
     public function update(TaskUpdateRequest $request, Task $task)
@@ -31,13 +31,13 @@ class TaskController extends Controller
 
         $task->update($request->only('title'));
 
-        return $this->apiSuccess($task, 'Task updated successfully.');
+        return $this->apiSuccess($task, "Task {$task->title} updated successfully.");
     }
 
     public function destroy(Task $task)
     {
         $task->delete();
-        return $this->apiSuccess(null, 'Task deleted successfully.');
+        return $this->apiSuccess(null, "Task {$task->title} deleted successfully.");
     }
 
     public function toggleComplete(Task $task)
@@ -45,6 +45,6 @@ class TaskController extends Controller
         $task->completed = !$task->completed;
         $task->save();
 
-        return $this->apiSuccess($task, 'Task completion status  successfully to' . ($task->completed ? ' completed' : ' not completed') . '.');
+        return $this->apiSuccess($task, "Task {$task->title} " . ($task->completed ? ' completed' : ' not completed') . ".");
     }
 }
