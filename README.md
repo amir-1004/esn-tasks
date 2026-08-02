@@ -13,34 +13,44 @@ This is a simple web page tasks list.
 The user can create , edit task title ,mark completed and delete task.
 There is also a search bar.
 
+### Prerequisites
 
-## Installation
+Make sure Docker is installed.
 
-The best option is using laravel sail 
+Otherwise install with composer , just make sure the ports are available
+and that you have MySql and php installed locally
+for further information visit Laravel.com .
 
-1. Download the repository
-2. In the folder dir type this command :
- 
+If you have PHP and Composer installed **locally**, run:
+
 ```bash
-sail up -d 
-#or .vendor/bin sail up -d if it's not alias
+composer install && ./vendor/bin/sail up -d
+```
+
+#### 💡 Important
+
+If you **do not** have PHP or Composer installed locally on your machine, use this temporary Docker command to generate the vendor folder instead:
+
+```bash
+docker run --rm \
+    -u "\((id -u):\)(id -g)" \
+    -v "\$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php83-composer:latest \
+    composer install --ignore-platform-reqs
+```
+
+Once the Docker command finishes, boot up the environment using:
+
+```bash
+./vendor/bin/sail up -d
 ```
 
 ## Migration && Seed
 
-In order of the app to work we need the db structre, seeding is optional  
+In order of the app to work we need the db structre, seeding is optional
+
 ```bash
 sail artisan migrate:fresh --seed
 #Please be carefull not to use fresh in production it will reset your DB!
 ```
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
