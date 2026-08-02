@@ -5,6 +5,9 @@ use App\Http\Controllers\TaskController;
 
 Route::get('/', [TaskController::class, 'index']);
 Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
-Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
-Route::put('/tasks/{task}/toggle', [TaskController::class, 'toggleComplete'])->name('tasks.toggle');
-Route::put('/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
+Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy')
+    ->whereNumber('task');
+Route::put('/tasks/{task}/toggle', [TaskController::class, 'toggleComplete'])->name('tasks.toggle')
+    ->whereNumber('task');
+Route::put('/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update')
+    ->whereNumber('task');
