@@ -11,9 +11,9 @@
     </div>
 
     <ul class="list-group">
-        @include('new-task-row')
+        @include('tasks.new-task-row')
         @foreach ($tasks as $task)
-        @include('task-row', ['task' => $task])
+        @include('tasks.task-row', ['task' => $task])
         @endforeach
 
     </ul>
@@ -40,8 +40,8 @@
 
     $("form#new-task-form").on("submit", function(e) {
 
-        $(".new-task-wrapper").slideDown
         e.preventDefault();
+
         const title = $(this).find("input[name='title']").val();
         $.ajax({
             url: '/tasks',
@@ -52,8 +52,11 @@
             },
             success: function(response) {
 
-                appendTaskToList(response.data);
+                console.log(response);
+                appendTaskRowHtml(response.data);
                 toastMessage(message = response.message);
+                $(".new-task-wrapper").slideUp();
+                console.log($(".new-task-wrapper"))
             },
             error: function(xhr, status, error) {
                 toastMessage("Error creating task", 'danger');
@@ -61,7 +64,7 @@
         });
     });
 
-    $("form[id^='task-form-']").on("submit", function(e) {
+    $(document).on("submit", "form[id^='task-form-']", function(e) {
         e.preventDefault();
         const taskId = $(this).attr("id").replace("task-form-", "");
         const title = $(this).find("input[name='title']").val();
@@ -91,6 +94,7 @@
         });
     });
 
+    //open new task form (first row in the list)
     $(".new-task-btn").on("click", function(e) {
         e.preventDefault();
         $(".new-task-wrapper").slideDown();
@@ -113,7 +117,7 @@
     $(".task-row-wrapper .cancel-btn").on("click", function(e) {
         // cancel edit mode for the task row
         const id = $(this).attr("id").replace("cancel-task-", "");
-        $("input#task-title-" + id).addClass("d-none");
+        $(document).find("input#task-title-" + id).addClass("d-none");
         $("div#task-title-" + id).removeClass("d-none");
         $("button#save-task-" + id).addClass("d-none");
 
@@ -124,7 +128,7 @@
         $(this).addClass("d-none");
     });
 
-    $("button[id^='complete-task-']").on("click", function(e) {
+    $(document).on("click", "button[id^='complete-task-']", function(e) {
 
         $.ajax({
             url: '/tasks/' + $(this).attr("id").replace("complete-task-", "") + '/toggle',
@@ -149,7 +153,7 @@
         });
     });
 
-    $("button[id^='delete-task-']").on("click", function(e) {
+    $(document).on("click", "button[id^='delete-task-']", function(e) {
 
         const taskId = $(this).attr("id").replace("delete-task-", "");
         $.ajax({
@@ -169,50 +173,29 @@
         });
     });
 
-    $("button[id^='edit-task-']").on("click", function(e) {
+    $(document).on("click", "button[id^='edit-task-']", function(e) {
 
         e.preventDefault();
 
         const taskId = $(this).attr("id").replace("edit-task-", "");
-        const taskTitle = $("div#task-title-" + taskId).text();
+        const taskTitle = $("div#task-title-" + taskId).text().trim();
+
+        $(document).find("input#task-title-" + taskId).val(taskTitle).removeClass("d-none").focus();
+        $(document).find("div#task-title-" + taskId).addClass("d-none");
+        $(document).find("button#save-task-" + taskId).removeClass("d-none");
+        $(document).find("button#cancel-task-" + taskId).removeClass("d-none");
+
+        $(document).find("button#complete-task-" + taskId).addClass("d-none");
+        $(document).find("button#delete-task-" + taskId).addClass("d-none");
+        $(document).find("button#edit-task-" + taskId).addClass("d-none");
 
 
-        $("input#task-title-" + taskId).val(taskTitle).removeClass("d-none").focus();
-
-        //hide the title and show the input field
-        $("button#edit-task-" + taskId).addClass("d-none");
-        $("button#delete-task-" + taskId).addClass("d-none");
-        $("button#complete-task-" + taskId).addClass("d-none");
-
-        $("div#task-title-" + taskId).addClass("d-none");
-
-        //show save and cancel buttons
-        $("button#save-task-" + taskId).removeClass("d-none");
-        $("button#cancel-task-" + taskId).removeClass("d-none");
 
     })
 
 
-    function appendTaskToList(data) {
-        // create a new task row using the data and append it to the list
-        const newTaskRow = `
-            <li class="list-group-item">
-                <div class="task-title">${data.title}</div>
-                <div class="icon-group d-inline-block float-end fs-5">
-                    <button 
-                        id="complete-task-${data.id}"
-                        class="link-secondary">
-                        <i class="bi bi-circle"></i>
-                    </button>
-                    <button 
-                        id="delete-task-${data.id}" class="link-danger">
-                        <i class="bi bi-trash3"></i>
-                    </button>
-                </div>
-            </li>
-        `;
-        $(".list-group").append(newTaskRow);
-        //bootsrap toast success message
+    function appendTaskRowHtml(taskRowHtml) {
+        $(".list-group").append(taskRowHtml);
     }
 
     function toastMessage(message, type = 'success') {

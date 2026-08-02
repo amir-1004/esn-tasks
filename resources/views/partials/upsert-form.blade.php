@@ -49,6 +49,8 @@
              type="button"
              @isset($task)
              id="cancel-task-{{ $task->id }}"
+             @else
+             id="cancel-new-task"
              @endisset
              class="link-danger cancel-btn d-none">
              <i class="bi bi-x-circle"></i>

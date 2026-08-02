@@ -22,8 +22,8 @@ class TaskController extends Controller
         ]);
 
         $task = Task::create($request->only('title'));
-
-        return $this->apiSuccess($task, 'Task created successfully.');
+        $taskRowHtml = view('tasks.task-row', compact('task'))->render();
+        return $this->apiSuccess($taskRowHtml, 'Task created successfully.');
     }
 
     public function update(TaskUpdateRequest $request, Task $task)
