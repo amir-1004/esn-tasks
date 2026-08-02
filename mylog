@@ -4,3 +4,5 @@ cd esn-tasks
 sail artisan migrate
 sail artisan make:model Task -mfs
 sail artisan migrate:fresh --seed
+sail artisan make:request TaskStoreRequest
+sail artisan make:request TaskUpdateRequest  

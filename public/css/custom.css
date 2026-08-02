@@ -9,3 +9,11 @@ main {
 .icon-group button:active {
     font-size: 1.2rem;
 }
+
+.icon-group button:hover {
+    opacity: 0.7;
+}
+
+.new-task-wrapper {
+    display: none;
+}

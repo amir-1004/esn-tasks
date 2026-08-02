@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 
 use App\Http\Requests\TaskStoreRequest;
+use App\Http\Requests\TaskUpdateRequest;
 
 class TaskController extends Controller
 {
@@ -20,9 +21,17 @@ class TaskController extends Controller
             'title' => 'required|string|max:255',
         ]);
 
-        $task = Task::create($request->only('title', 'description'));
+        $task = Task::create($request->only('title'));
 
         return $this->apiSuccess($task, 'Task created successfully.');
+    }
+
+    public function update(TaskUpdateRequest $request, Task $task)
+    {
+
+        $task->update($request->only('title'));
+
+        return $this->apiSuccess($task, 'Task updated successfully.');
     }
 
     public function destroy(Task $task)
