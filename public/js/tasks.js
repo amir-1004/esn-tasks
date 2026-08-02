@@ -20,6 +20,7 @@ $("form#new-task-form").on("submit", function (e) {
     });
 });
 
+//$(document) because the button is  not present in the DOM when the page loads.
 $(document).on("submit", "form[id^='task-form-']", function (e) {
     e.preventDefault();
     const taskId = $(this).attr("id").replace("task-form-", "");
@@ -87,6 +88,7 @@ $(".task-row-wrapper .cancel-btn").on("click", function (e) {
 });
 
 // toggle task completion , will not send data from the form!
+
 $(document).on("click", "button[id^='complete-task-']", function (e) {
     e.preventDefault();
     $.ajax({
@@ -155,7 +157,6 @@ $(document).on("click", "button[id^='edit-task-']", function (e) {
     $(document)
         .find("button#cancel-task-" + taskId)
         .removeClass("d-none");
-
     $(document)
         .find("button#complete-task-" + taskId)
         .addClass("d-none");
@@ -167,6 +168,7 @@ $(document).on("click", "button[id^='edit-task-']", function (e) {
         .addClass("d-none");
 });
 
+//Better than building the element dynamucally with Jquery.
 function appendTaskRowHtml(taskRowHtml) {
     $(".list-group").append(taskRowHtml);
 }
