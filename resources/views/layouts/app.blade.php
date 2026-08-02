@@ -19,18 +19,23 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
-                Bootstrap
+                ESN Tasks
             </a>
         </div>
     </nav>
 
     <main>
+        @include('partials.toast')
         @yield('content')
     </main>
 
     <footer class="bg-light text-center text-lg-start mt-5 p-3">
         <p>&copy; {{ date('Y') }} Company Name</p>
     </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    @yield('scripts')
 </body>
 
 </html>
