@@ -10,19 +10,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link rel="icon" type="image/png" href="https://www.esn.co.il/img/logo/ESN-Icon-large.png">
 
     <title>@yield('title', 'My Website')</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
-                ESN Tasks
-            </a>
-        </div>
-    </nav>
+    @include('partials.navbar')
 
     <main>
         @include('partials.toast')
@@ -30,7 +24,7 @@
     </main>
 
     <footer class="bg-light text-center text-lg-start mt-5 p-3">
-        <p>&copy; {{ date('Y') }} Company Name</p>
+        <p>&copy; {{ date('Y') }} Amir Lifshitz</p>
     </footer>
 
     <!-- jQuery -->
